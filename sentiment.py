@@ -21,7 +21,7 @@ nltk.download('stopwords', quiet=True)
 # 1. LOAD DATASET
 # ==========================================
 
-file_path = "dataset_konekin/sentiment_analyst.csv"   
+file_path = "dataset/sentiment_analyst.csv"   
 try:
     df = pd.read_csv(file_path, encoding="latin-1")
     print("✅ File berhasil dibaca!")
@@ -50,7 +50,7 @@ plt.xlabel('Sentimen')
 plt.ylabel('Jumlah Tweet')
 plt.show()
 
-# WordCloud (opsional, bisa di-skip jika lama)
+# WordCloud 
 print("\n Membuat WordCloud (mungkin butuh waktu)...")
 STOPWORDS = set(stopwords.words('english'))
 def plot_wordcloud(sentiment, color='white'):
