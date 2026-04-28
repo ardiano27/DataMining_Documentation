@@ -7,7 +7,6 @@ from sklearn.metrics import accuracy_score, classification_report, confusion_mat
 from pymongo import MongoClient
 from pymongo.errors import ServerSelectionTimeoutError
 
-
 MONGO_URI = "mongodb://localhost:27017/"
 DB_NAME = "data_mining"
 COLLECTION_NAME = "iris"
