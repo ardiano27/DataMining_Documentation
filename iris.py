@@ -24,6 +24,26 @@ def load_iris_dataframe():
     return df, iris.feature_names
 
 
+def preprocess_dataframe(df):
+    jumlah_awal = len(df)
+    missing_per_kolom = df.isnull().sum()
+
+    print("\n--- Preprocessing: Pengecekan Data Kosong ---")
+    if missing_per_kolom.sum() == 0:
+        print("Tidak ada data kosong ditemukan. Data bersih.")
+    else:
+        print("Data kosong ditemukan per kolom:")
+        print(missing_per_kolom[missing_per_kolom > 0].to_string())
+        df = df.dropna()
+        jumlah_dihapus = jumlah_awal - len(df)
+        print(f"Baris dihapus : {jumlah_dihapus}")
+        print(f"Sisa data     : {len(df)} baris")
+
+    print(f"Total baris   : {len(df)}")
+    print("---------------------------------------------")
+    return df
+
+
 def connect_mongo(uri=MONGO_URI):
     client = MongoClient(uri, serverSelectionTimeoutMS=5000)
     client.admin.command("ping")
@@ -89,7 +109,8 @@ def main():
     print("\nData yang dibaca kembali dari MongoDB:")
     print(df_mongo.head())
 
-    train_knn(df_mongo, feature_cols)
+    df_clean = preprocess_dataframe(df_mongo)
+    train_knn(df_clean, feature_cols)
 
 
 if __name__ == "__main__":
